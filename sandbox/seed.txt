@@ -1,0 +1,5 @@
+https://it.wikipedia.org/wiki/Pagina_principale	100	1
+https://en.wikipedia.org/wiki/Main_Page	200	2
+https://es.wikipedia.org/wiki/Wikipedia:Portada	300	3
+https://ru.wikipedia.org/wiki/Заглавная_страница	400	4
+https://ja.wikipedia.org/wiki/メインページ	500	5
