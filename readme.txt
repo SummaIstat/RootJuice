@@ -23,7 +23,7 @@ I developed and used this program for 2 different use cases:
 2) scrape several pages of the URLs listed in the input file seed.txt
 
 On the basis of the use case it is necessary to change the configuration parameters contained in the input file conf.properties accordingly.
-
+RootJuice encapsulates crawler4j (https://github.com/yasserg/crawler4j).
 
 ======================================================================
 How is the project folder made
@@ -68,7 +68,8 @@ If you have Java already installed on your PC you just have to apply the followi
 	MAX_DEPTH_OF_CRAWLING = 2 		0 = scrape just the homepage   1 = home and 1st level   2 = home,1st and 2nd level 
 	MAX_PAGES_TO_FETCH = -1 		the maximum number of webpages to fetch,  -1 = infinite
 	MAX_PAGES_PER_SEED = 20 		the maximum number of webpages to fetch per single seed
-
+    USER_AGENT_STRING = Istat (http://www.istat.it/)     the name of the scraper
+    
 	If you want to scrape only the homepages of the URLs listed in the input file seed.txt you should set :
 	MAX_DEPTH_OF_CRAWLING = 0
 	MAX_PAGES_PER_SEED = 1

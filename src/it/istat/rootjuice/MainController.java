@@ -35,6 +35,7 @@ public class MainController {
 
 	static Logger logger = Logger.getLogger(MainController.class);
 	private static CrawlConfig crawlConfig;
+	private static RobotstxtConfig robotstxtConfig = new RobotstxtConfig();
 	private static String seedsFilePath;
 	private static String seedsDomainsToFilterFilePath;
 	private static String csvFilePath;
@@ -47,6 +48,7 @@ public class MainController {
 	  	
 		MainController mainController = new MainController();
 		mainController.configure(args);		
+		
 		
 		//=====================================================================================================
 		// Initial prints
@@ -68,8 +70,6 @@ public class MainController {
 		// Instantiate the controller for this crawl		 
         //=====================================================================================================
 		PageFetcher pageFetcher = new PageFetcher(crawlConfig);
-		RobotstxtConfig robotstxtConfig = new RobotstxtConfig();
-		robotstxtConfig.setEnabled(Conf.ROBOTS_TXT_ENABLED);
 		RobotstxtServer robotstxtServer = new RobotstxtServer(robotstxtConfig,pageFetcher);
 		MyCrawlController crawlController = new MyCrawlController(crawlConfig, pageFetcher,robotstxtServer);
 		crawlController = Utils.getOrderedSeedListFromFile(seedsFilePath, crawlController);	
@@ -196,6 +196,7 @@ public class MainController {
 		crawlConfig.setFollowRedirects(Conf.FOLLOW_REDIRECTS);
 		crawlConfig.setPolitenessDelay(Conf.DELAY_BETWEEN_REQUESTS_IN_MILLISEC);
 		crawlConfig.setOnlineTldListUpdate(false);
+		robotstxtConfig.setEnabled(Conf.ROBOTS_TXT_ENABLED);
 		return crawlConfig; 
 	}
 
@@ -264,7 +265,8 @@ public class MainController {
 			if(props.getProperty("PROXY_PORT") != null){crawlConfig.setProxyPort(Integer.parseInt(props.getProperty("PROXY_PORT")));}else{crawlConfig.setProxyPort(80);}
 			if(props.getProperty("PROXY_USERNAME") != null){crawlConfig.setProxyUsername(props.getProperty("PROXY_USERNAME"));}
 			if(props.getProperty("PROXY_PASSWORD") != null){crawlConfig.setProxyPassword(props.getProperty("PROXY_PASSWORD"));}
-			if(props.getProperty("USER_AGENT_STRING") != null){crawlConfig.setUserAgentString(props.getProperty("USER_AGENT_STRING"));}
+			if(props.getProperty("USER_AGENT_STRING") != null){crawlConfig.setUserAgentString(props.getProperty("USER_AGENT_STRING"));robotstxtConfig.setUserAgentName(props.getProperty("USER_AGENT_STRING"));}
+			if(props.getProperty("ROBOTS_TXT_ENABLED") != null){robotstxtConfig.setEnabled(Boolean.valueOf(props.getProperty("ROBOTS_TXT_ENABLED")));}
 			
 			return crawlConfig;
 		}else{

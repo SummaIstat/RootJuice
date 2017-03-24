@@ -60,7 +60,7 @@ public class Conf {
     public final static int MAX_CONNECTIONS_PER_HOST = 10; //100
     public final static int MAX_TOTAL_CONNECTIONS = 1000; //200
     public final static String FILE_EXTENSIONS_TO_AVOID = ".*(\\.(css|js|gif|jpg|png|ico|eps|wmf|ppt|mpg|xls|rpm|tgz|mov|exe|jpeg|bmp|pdf|mp3|zip|gz))$";
-    
+    //public final static String FILE_EXTENSIONS_TO_AVOID = ".*(\\.(css|js|eps|wmf|ppt|mpg|xls|rpm|tgz|mov|exe|pdf|mp3|zip|gz))$";
     public final static Pattern FILTERS = Pattern.compile(FILE_EXTENSIONS_TO_AVOID);
     public final static int SOCKET_TIMEOUT = 10000; // 20000
     public final static int CONNECTION_TIMEOUT = 15000; // 30000
@@ -69,9 +69,10 @@ public class Conf {
     public final static boolean FOLLOW_REDIRECTS = true;
     public final static boolean RESUMABLE_CRAWLING = false;
     public final static boolean INCLUDE_HTTPS_PAGES = true;
-    public final static boolean INCLUDE_BINARY_CONTENT_IN_CRAWLING = false;
-    public final static boolean ROBOTS_TXT_ENABLED = false; // true
+    public final static boolean INCLUDE_BINARY_CONTENT_IN_CRAWLING = true;
+    public final static boolean ROBOTS_TXT_ENABLED = true;
     
     public final static int MAX_PAGES_PER_SEED = 15;
+    
 	
 }
