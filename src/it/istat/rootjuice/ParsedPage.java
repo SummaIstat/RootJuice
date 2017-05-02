@@ -84,7 +84,8 @@ public class ParsedPage {
 					"\t" + sitoAzienda +
 					"\t" + codiceLink +
 					"\t" + title.replaceAll("(\\r|\\n|\\t|\")", " ") +
-					"\t" + corpoPagina.replaceAll("(\\r|\\n|\\t|\")", " ");
+					"\t" + corpoPagina.replaceAll("(\\r|\\n|\\t|\")", " ") +
+					"\t" + depth;
 		} catch (UnsupportedEncodingException e) {
 			logger.info("****************************************************");
 			logger.info("****************************************************");
@@ -105,7 +106,8 @@ public class ParsedPage {
 					"\t" + sitoAzienda +
 					"\t" + codiceLink +
 					"\t" + title.replaceAll("(\\r|\\n|\\t|\")", " ") +
-					"\t" + corpoPagina.replaceAll("(\\r|\\n|\\t|\")", " ");
+					"\t" + corpoPagina.replaceAll("(\\r|\\n|\\t|\")", " ") +
+					"\t" + depth;
 		}
 		
 	}

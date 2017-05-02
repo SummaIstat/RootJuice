@@ -187,6 +187,7 @@ public class MyCrawler4J extends WebCrawler {
 						pp.setCodiceLink(wu.getLinkPosition() + " ");
 						pp.setTitle(title + " ");
 						pp.setCorpoPagina(pageText + " ");
+						pp.setDepth(wu.getDepth());
 	                 
 						num = 0;
 						for (Element anchor : doc.select("a")){
