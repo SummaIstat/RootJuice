@@ -2,10 +2,14 @@ package it.istat.rootjuice;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.io.Writer;
+import java.io.BufferedWriter;
+import java.io.OutputStreamWriter;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -48,8 +52,7 @@ public class MainController {
 	  	
 		MainController mainController = new MainController();
 		mainController.configure(args);		
-		
-		
+				
 		//=====================================================================================================
 		// Initial prints
 		//=====================================================================================================
@@ -78,10 +81,9 @@ public class MainController {
 		//=====================================================================================================
 		// Print first line of the CSV output file		 
         //=====================================================================================================
-		FileWriter fw = new FileWriter(csvFilePath, true);
-		PrintWriter pw = new PrintWriter(fw);
-		Utils.setPrintWriter(pw);
-		pw.println("id" + "\t" +
+		Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(csvFilePath), "UTF8"));
+		Utils.setWriter(writer);
+		String firstLine= "id" + "\t" +
 				"url" + "\t" +
 				"imgsrc" + "\t" +
 				"imgalt" + "\t" +
@@ -92,11 +94,13 @@ public class MainController {
 				"inputname" + "\t" + 
 				"metatagDescription" + "\t" + 
 				"metatagKeywords" + "\t" + 
-				"codiceAzienda" + "\t" + 
-				"sitoAzienda" +	"\t" + 
-				"codiceLink" + "\t" + 
+				"firmId" + "\t" + 
+				"firmWebSite" +	"\t" + 
+				"linkPosition" + "\t" + 
 				"title" + "\t" + 
-				"corpoPagina");
+				"pageBody" + "\t" +
+				"pageDepth";
+		Utils.printFirstLine(firstLine);
 		
 		//=====================================================================================================
 		// Start the crawl. This is a blocking operation, meaning that your code
@@ -105,8 +109,8 @@ public class MainController {
 		crawlController.start(MyCrawler4J.class, numOfCrawlers);
 		logger.info("Scraping operations ended");
 		//solrServer.commit();
-		fw.close();
-		pw.close();
+		writer.flush();
+		writer.close();
 		
 		//=====================================================================================================
 		// Summarization of obtained results
