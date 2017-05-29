@@ -50,8 +50,16 @@ public class Utils {
 		writer = fileWriter;
 	}
 	
-	public static void print(ParsedPage pp) throws IOException{
+	public static synchronized void print(ParsedPage pp) throws IOException{
 		writer.append(pp.toString()).append("\r\n");
+		//writer.flush();
+//		String[] tokens;
+//    	String delimiter = "\t";
+//		tokens = pp.toString().split(delimiter);
+//		int numOfTab = tokens.length;
+//		if (numOfTab > 17){
+//			logger.error("problema rilevato : " + tokens[0] + tokens[17]);
+//		}
 	} 
 	
 	public static void printFirstLine(String firstLine) throws IOException{
