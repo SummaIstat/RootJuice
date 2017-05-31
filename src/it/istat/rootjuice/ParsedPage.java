@@ -49,9 +49,11 @@ public class ParsedPage {
 				} catch (UnsupportedEncodingException e) {
 					ahref.add(fieldValue);
 					logger.info("+++++++++++++++++++++++++++++++");
-					logger.info("+++++++++++++++++++++++++++++++");
-					logger.info("UnsupportedEncodingException : " + e.getMessage());
+					logger.error("UnsupportedEncodingException : " + e.getMessage());
 					e.printStackTrace();
+				} catch (IllegalArgumentException iae){
+					//fieldValue = Utils.getCleanedAndDecodedUrl(fieldValue);
+					ahref.add(fieldValue);
 				}
 		    	break;
 		    case "aalt":

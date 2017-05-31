@@ -238,7 +238,7 @@ public class PageFetcher extends Configurable {
     	  //CloseableHttpResponse response = httpClient.execute(request);
     	  response = httpClient.execute(request);
       } catch(Exception e){
-    	  logger.warn("Problema: " + e.getMessage() + " url : " + toFetchURL);
+    	  logger.warn("Problem: " + e.getMessage() + " url : " + toFetchURL);
     	  logger.debug("",e);
     	  //e.printStackTrace();
       }

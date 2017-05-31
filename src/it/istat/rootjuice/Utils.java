@@ -8,7 +8,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.io.Writer;
+import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -188,5 +190,19 @@ public class Utils {
 		return false;
 	}
 	
+	public static String getCleanedAndDecodedUrl(String urlToClean) {
+		String cleanedUrl = "";
+		cleanedUrl = urlToClean.replaceAll("%(?![0-9a-fA-F]{2})", "%25");
+		try {
+			cleanedUrl = URLDecoder.decode(cleanedUrl, "UTF-8");
+			return cleanedUrl;
+		} catch (Exception e) {
+			logger.info("+++++++++++++++++++++++++++++++");
+			logger.error("UnsupportedEncodingException : " + e.getMessage());
+			logger.info("This URL will not be encoded : " + urlToClean);
+			return urlToClean;
+		}
+		
+	}
 	
 }
