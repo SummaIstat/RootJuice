@@ -17,8 +17,10 @@ reteimprese.it
 cercoimprese.com
 ricercaimprese.com
 impresaumbra.it
+.gov.it
 tripadvisor.
 cylex.it
+yahoo.com
 facebook.com
 linkedin.com
 twitter.com
@@ -74,6 +76,7 @@ masterseek.it/
 europages.it/
 webrica.it/
 guidamonaci.it
+guidafisco.it
 youinweb.it/
 892000.it/
 trova-assicurazioni.it/
@@ -161,6 +164,7 @@ doctoralia.it/
 booking.com/
 editelonline.it/
 tuttocalciatori.net/
+tuttocamere.it
 it.scribd.com/
 mi.camcom.it/
 informatik.uni-trier.de/
@@ -175,6 +179,7 @@ lissoneonline.it/
 iristorante.it/
 notai.in/
 finanzaediritto.it/
+diritto.it
 web-planet.it/
 unioncamere.gov.it/
 it.answers.yahoo.com/
@@ -275,6 +280,7 @@ nuoviclienti.com/
 notai.professionistinapoli.it/
 mn.camcom.it/
 attestazione.net/
+laleggepertutti.it/
 eucode.info/
 bedandbreakfast4you.it/
 2-g.com/
@@ -297,6 +303,7 @@ e-glossa.it/
 studio-angeli.it/
 gegimpianti.it/
 tesionline.it/
+glosbe.com
 lslex.com/
 gegfootwear.it/
 trovaincitta.com/
@@ -477,6 +484,7 @@ pizza.it/
 eurodefi.org/
 federation.it/
 fiscoetasse.com/
+tasse-fisco.com/
 en.info-clipper.com/
 revisionedellaspesa.gov.it/
 economiaweb.it/

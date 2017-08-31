@@ -89,7 +89,7 @@ public class MyCrawler4J extends WebCrawler {
 
 	@Override 
 	public void onContentFetchError(WebURL webUrl) {
-	    logger.warn("Can't fetch content of: " + webUrl.getURL());
+		logger.warn("Can't fetch content of: " + webUrl.getURL() + " " + ((MyWebURL)webUrl).getFirmId() + " " + ((MyWebURL)webUrl).getLinkPosition()); //logger.warn("Can't fetch content of: " + webUrl.getURL());
 	}
 	  
 	@Override  
@@ -101,7 +101,7 @@ public class MyCrawler4J extends WebCrawler {
 	  
 	@Override
 	public void onParseError(WebURL webUrl) {
-		logger.warn("Parsing error of: " + webUrl.getURL());
+		logger.warn("Parsing error of: " + webUrl.getURL() + " " + ((MyWebURL)webUrl).getFirmId() + " " + ((MyWebURL)webUrl).getLinkPosition());//logger.warn("Parsing error of: " + webUrl.getURL());		
   	}
 		
 	@Override
@@ -171,7 +171,7 @@ public class MyCrawler4J extends WebCrawler {
 						}
 							
 						ParsedPage pp = new ParsedPage();
-						pp.setId(wu.getURL());
+						pp.setId(wu.getFirmId()+"§"+wu.getLinkPosition()+"§"+wu.getURL());
 						pp.setUrl(wu.getURL());
 						pp.setImgsrc(new ArrayList<String>());
 						pp.setImgalt(new ArrayList<String>());
