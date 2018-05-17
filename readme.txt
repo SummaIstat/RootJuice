@@ -54,7 +54,7 @@ If you have Java already installed on your PC you just have to apply the followi
 	rootJuiceConf.properties 
 	seed.txt
 	
-3) create the "myCrawlFolder" directory inside the "myDir" directory
+3) create the "myCrawlFolder" and the "binaryContent" directories inside the "myDir" directory
 
 4) customize the parameters inside the rootJuiceConf.properties file :
 	
@@ -150,5 +150,11 @@ java -jar -Xmx1536m C:\workspace2\RootJuice\sandbox\RootJuice.jar C:\workspace2\
 Considerations
 ======================================================================
 
-This program is still a work in progress so be patient if it is not completely fault tolerant; in any case feel
-free to contact me (donato.summa@istat.it) if you have any questions or comments.
+This program is still a work in progress so be patient if it is not completely fault tolerant; in any case feel free to contact me (donato.summa@istat.it) if you have any questions or comments.
+
+======================================================================
+Notes for the autor (really irrelevant for anyone else :-D )
+======================================================================
+
+Selenium drivers download page:
+https://github.com/mozilla/geckodriver/releases

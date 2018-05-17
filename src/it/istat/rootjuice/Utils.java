@@ -10,27 +10,36 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
 * @author  Donato Summa
 */
 public class Utils {
 
-	static Logger logger = Logger.getLogger(Utils.class);
+	
+	private static final Logger logger = LoggerFactory.getLogger(Utils.class);
 	
 	private static Map<String,Integer> seedsMap = new HashMap<String,Integer>();
 	private static List<String> listSeedsDomainsToFilter = new ArrayList<String>();
 	private static List<String> listSeedsDomainsFiltered = new ArrayList<String>();
 	private static List<String> listSeedsDomainsNotFiltered = new ArrayList<String>();
 	private static Writer writer;
+	private static DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy_HH-mm-ss");
 
 	public static Map<String, Integer> getSeedsMap() {
 		return seedsMap;
@@ -204,5 +213,61 @@ public class Utils {
 		}
 		
 	}
+
+	public static URL getWellformedUrl(String baseUrl, String relativeUrl)  {
+		URL finalUrl = null;
+		try {
+			finalUrl=new URL(absUrl(baseUrl, relativeUrl));
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
+		return finalUrl;
+	}
 	
+	public static String absUrl(String baseUrlString, String urlString) throws MalformedURLException, URISyntaxException {
+        if (urlString == null || urlString.trim().length() == 0) urlString = "";
+        URL baseUrl = new URL(baseUrlString);
+        URL url = new URL(baseUrl, urlString);
+        urlString = url.toString().replaceAll("\\\\+", "/");
+        url = new URL(urlString);
+        String uri = url.getPath();
+        String uriString = uri.replaceAll("/+", "/");
+        urlString = url.toString().replaceAll(uri, uriString);
+        int index = urlString.indexOf("/..");
+        if (index < 0) return urlString;
+        String urlStringLeft = urlString.substring(0, index) + "/";
+        String urlStringRight = urlString.substring(index + 1);
+        return absUrl(urlStringLeft, urlStringRight);
+    }
+    
+    public static String absUrl(String url) {
+        try {
+            return absUrl(url, null);
+        } catch (MalformedURLException | URISyntaxException e) {
+            logger.warn("convert url to absUrl error", e);
+            return url;
+        }
+    }
+    
+    public static File createFileOnDisk(String fileName){
+    	if(!isAValidFile(fileName)){
+    		return new File(fileName);
+    	}else{
+    		// there is already a file with this name
+    		
+    		// option 1 - let's change the name, this one will be downloaded again with a different name
+    		//String beforeExtensionDot = fileName.substring(0,fileName.lastIndexOf('.'));
+    		//String extension = fileName.substring(fileName.lastIndexOf('.'));
+    		//return new File(beforeExtensionDot + "_" + dateFormat.format(new Date()) + extension);
+    		
+    		// option 2 - let's using the same name, this one will overwrite the already present
+    		//return new File(fileName);
+    		
+    		// option 3 - return null, the situation will be managed elsewhere
+    		return null;
+    	}
+    }
+    
 }

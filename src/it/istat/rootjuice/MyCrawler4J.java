@@ -13,7 +13,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.log4j.Logger;
+
+/*
 import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.BinaryRequestWriter;
@@ -21,10 +22,13 @@ import org.apache.solr.client.solrj.impl.ConcurrentUpdateSolrServer;
 import org.apache.solr.client.solrj.impl.HttpSolrServer;
 import org.apache.solr.client.solrj.response.UpdateResponse;
 import org.apache.solr.common.SolrInputDocument;
+*/
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import edu.uci.ics.crawler4j.crawler.CrawlConfig;
 import edu.uci.ics.crawler4j.crawler.CrawlController;
@@ -39,14 +43,15 @@ import edu.uci.ics.crawler4j.url.WebURL;
 */
 public class MyCrawler4J extends WebCrawler {
     
-	static Logger logger = Logger.getLogger(MyCrawler4J.class);
+	protected static final Logger logger = LoggerFactory.getLogger(MyCrawler4J.class);
+	
 	public static int totPagesVisited = 0;
 	private static int maxPagesPerSeed = MainController.getMaxPagesPerSeed();
 	//private SolrServer solrServer = MainController.getSolrServer();
-	private SolrInputDocument solrInputDocument;
+	//private SolrInputDocument solrInputDocument;
 	
 	@Override
-	public void init(int id, CrawlController crawlController) {
+	public void init(int id, CrawlController crawlController) throws InstantiationException, IllegalAccessException {
 		super.init(id, crawlController);
 		Field parserField;
 		try {
@@ -67,7 +72,8 @@ public class MyCrawler4J extends WebCrawler {
 	
 	@Override
 	public void handlePageStatusCode(WebURL webUrl, int statusCode, String statusDescription) {
-		MyWebURL mwu = (MyWebURL) webUrl; 
+		//MyWebURL mwu = (MyWebURL) webUrl; //summa
+		WebURL mwu = (WebURL) webUrl; //summa
 		if(statusCode >= 400 && statusCode < 600){
 			logger.info("Status code_" + statusCode + " for " + webUrl.getURL() + " having codAzienda " + mwu.getFirmId() + " status description = " + statusDescription);
 		}
@@ -89,7 +95,9 @@ public class MyCrawler4J extends WebCrawler {
 
 	@Override 
 	public void onContentFetchError(WebURL webUrl) {
-		logger.warn("Can't fetch content of: " + webUrl.getURL() + " " + ((MyWebURL)webUrl).getFirmId() + " " + ((MyWebURL)webUrl).getLinkPosition()); //logger.warn("Can't fetch content of: " + webUrl.getURL());
+		//summa
+		//logger.warn("Can't fetch content of: " + webUrl.getURL() + " " + ((MyWebURL)webUrl).getFirmId() + " " + ((MyWebURL)webUrl).getLinkPosition()); //logger.warn("Can't fetch content of: " + webUrl.getURL());
+		logger.warn("Can't fetch content of: " + webUrl.getURL() + " " + ((WebURL)webUrl).getFirmId() + " " + ((WebURL)webUrl).getLinkPosition()); //logger.warn("Can't fetch content of: " + webUrl.getURL());
 	}
 	  
 	@Override  
@@ -101,7 +109,9 @@ public class MyCrawler4J extends WebCrawler {
 	  
 	@Override
 	public void onParseError(WebURL webUrl) {
-		logger.warn("Parsing error of: " + webUrl.getURL() + " " + ((MyWebURL)webUrl).getFirmId() + " " + ((MyWebURL)webUrl).getLinkPosition());//logger.warn("Parsing error of: " + webUrl.getURL());		
+		//summa
+		//logger.warn("Parsing error of: " + webUrl.getURL() + " " + ((MyWebURL)webUrl).getFirmId() + " " + ((MyWebURL)webUrl).getLinkPosition());//logger.warn("Parsing error of: " + webUrl.getURL());		
+		logger.warn("Parsing error of: " + webUrl.getURL() + " " + ((WebURL)webUrl).getFirmId() + " " + ((WebURL)webUrl).getLinkPosition());//logger.warn("Parsing error of: " + webUrl.getURL());
   	}
 		
 	@Override
@@ -130,9 +140,13 @@ public class MyCrawler4J extends WebCrawler {
 		
 		// third check ==> maxPagesPerSeed not reached
 		//boolean isMaxNumPerSeedNotYetReached = false;
-		MyWebURL mwu = new MyWebURL();
-		mwu = (MyWebURL) referringPage.getWebURL(); // use the input parameter "referring page" and not "url" because I just want to get the firmId 
-				
+		//summa
+		//=================================================
+		//MyWebURL mwu = new MyWebURL();
+		WebURL mwu = new WebURL();
+		//mwu = (MyWebURL) referringPage.getWebURL(); // use the input parameter "referring page" and not "url" because I just want to get the firmId
+		mwu = (WebURL) referringPage.getWebURL(); // use the input parameter "referring page" and not "url" because I just want to get the firmId
+		//=================================================		
 		if ( !(Utils.getSeedsMap().get(mwu.getFirmId()) < maxPagesPerSeed) ){
 			//isMaxNumPerSeedNotYetReached = true;
 			return false;
@@ -148,8 +162,12 @@ public class MyCrawler4J extends WebCrawler {
 	@Override
 	public void visit(Page page) {
 		
-		MyWebURL wu = (MyWebURL) page.getWebURL();
-				
+		//summa
+		//=============================================
+		//MyWebURL wu = (MyWebURL) page.getWebURL();
+		WebURL wu = (WebURL) page.getWebURL();
+		//=============================================
+		
 		if (Utils.getSeedsMap().get(wu.getFirmId()) != null){
 			
 			if ( Utils.getSeedsMap().get(wu.getFirmId()) < maxPagesPerSeed ){

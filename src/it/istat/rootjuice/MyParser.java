@@ -11,6 +11,8 @@ import org.apache.tika.metadata.DublinCore;
 import org.apache.tika.metadata.Metadata;
 import org.apache.tika.parser.ParseContext;
 import org.apache.tika.parser.html.HtmlParser;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import edu.uci.ics.crawler4j.crawler.CrawlConfig;
 import edu.uci.ics.crawler4j.crawler.Page;
@@ -34,8 +36,9 @@ public class MyParser extends Parser {
 
 	private final HtmlParser htmlParser;
 	private final ParseContext parseContext;
+	protected static final Logger logger = LoggerFactory.getLogger(MyParser.class);
 	  
-	public MyParser(CrawlConfig config) {
+	public MyParser(CrawlConfig config) throws IllegalAccessException, InstantiationException {
 		super(config);
 		htmlParser = new HtmlParser();
 	    parseContext = new ParseContext();
@@ -115,14 +118,17 @@ public class MyParser extends Parser {
 	            !hrefLoweredCase.contains("@")) {
 	          String url = URLCanonicalizer.getCanonicalURL(href, contextURL);
 	          if (url != null) {
-	            MyWebURL webURL = new MyWebURL();//summa
+	            //MyWebURL webURL = new MyWebURL();//summa
+	        	WebURL webURL = new WebURL();//summa
 	            webURL.setURL(url);
 	            webURL.setTag(urlAnchorPair.getTag());
 	            webURL.setAnchor(urlAnchorPair.getAnchor());
 	            
 	            
-	            MyWebURL mwu = new MyWebURL();//summa
-	    		mwu = (MyWebURL) page.getWebURL();
+	            //MyWebURL mwu = new MyWebURL();//summa
+	            WebURL mwu = new WebURL();//summa
+	    		//mwu = (MyWebURL) page.getWebURL();//summa
+	            mwu = (WebURL) page.getWebURL();//summa
 	    		
 	            //summa
 	            //=========================================================================

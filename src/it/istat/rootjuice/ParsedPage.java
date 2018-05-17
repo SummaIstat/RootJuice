@@ -5,14 +5,16 @@ import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
 * @author  Donato Summa
 */
 public class ParsedPage {
 
-	static Logger logger = Logger.getLogger(ParsedPage.class);
+	
+	protected static final Logger logger = LoggerFactory.getLogger(ParsedPage.class);
 	private String id;
 	private String url;
 	private List<String> imgsrc;

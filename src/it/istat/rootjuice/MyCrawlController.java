@@ -1,6 +1,8 @@
 package it.istat.rootjuice;
 
-import org.apache.log4j.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import edu.uci.ics.crawler4j.crawler.CrawlConfig;
 import edu.uci.ics.crawler4j.crawler.CrawlController;
@@ -14,7 +16,7 @@ import edu.uci.ics.crawler4j.url.WebURL;
 */
 public class MyCrawlController extends CrawlController{
 
-	static Logger logger = Logger.getLogger(MyCrawlController.class);
+	protected static final Logger logger = LoggerFactory.getLogger(MyCrawlController.class);
 	
 	public MyCrawlController(CrawlConfig config, PageFetcher pageFetcher, RobotstxtServer robotstxtServer) throws Exception {
 		super(config, pageFetcher, robotstxtServer);
@@ -44,7 +46,8 @@ public class MyCrawlController extends CrawlController{
 	        }
 	      }
 
-	      MyWebURL webUrl = new MyWebURL();//summa
+	      //MyWebURL webUrl = new MyWebURL();//summa
+	      WebURL webUrl = new WebURL();//summa
 	      webUrl.setURL(canonicalUrl);
 	      webUrl.setDocid(docId);
 	      webUrl.setDepth((short) 0);

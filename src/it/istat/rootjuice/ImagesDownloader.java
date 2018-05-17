@@ -1,0 +1,130 @@
+package it.istat.rootjuice;
+
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.InetSocketAddress;
+import java.net.Proxy;
+import java.net.URL;
+import java.io.*;
+import org.jsoup.Jsoup;
+
+import org.jsoup.nodes.Attributes;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/*
+import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
+import com.gargoylesoftware.htmlunit.ProxyConfig;
+import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.html.DomElement;
+import com.gargoylesoftware.htmlunit.html.DomNode;
+import com.gargoylesoftware.htmlunit.html.DomNodeList;
+import com.gargoylesoftware.htmlunit.html.HtmlImage;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
+*/
+import java.io.IOException;
+import java.net.URL;
+
+public class ImagesDownloader {
+/*
+	protected static final Logger logger = LoggerFactory.getLogger(ImagesDownloader.class);
+    //The url of the website. This is just an example
+    private static final String webSiteURL = "http://alicanti.store/87-autunno";
+    //The path of the folder that you want to save the images to
+    private static final String folderPath = "/home/summa/workspace/RootJuice/sandbox/binaryContent";
+
+    public static void mainMethod_htmlunit(String[] args) {
+
+        
+            final WebClient webClient = new WebClient();
+            ProxyConfig proxyConfig = new ProxyConfig("proxy.istat.it", 3128);
+            webClient.getOptions().setProxyConfig(proxyConfig);
+            webClient.getOptions().setDownloadImages(true);
+            HtmlPage page;
+			try {
+				page = webClient.getPage(webSiteURL);
+				//HtmlImage image = page.<HtmlImage>getFirstByXPath("/html/body/section[1]/section/div/div/section[2]/div[2]/div/div[1]/div/div/a/img");
+				HtmlImage image = page.<HtmlImage>getFirstByXPath("//img");
+				DomNodeList<DomElement> dnl= page.getElementsByTagName("img");
+				int i=0;
+				for (DomNode domNode : dnl) {
+					HtmlImage myImage = (HtmlImage) domNode;					
+					File imageFile = new File("/home/summa/workspace/RootJuice/sandbox/binaryContent/file"+i+".jpg");
+					myImage.saveAs(imageFile);
+					i++;
+				}
+	            File imageFile = new File("/home/summa/workspace/RootJuice/sandbox/binaryContent/file1.jpg");
+	            image.saveAs(imageFile);
+			} catch (FailingHttpStatusCodeException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}  
+            
+            
+        
+    }
+    
+    public static void mainMethod_jsoup(String[] args) {
+
+        try {
+        	
+        	System.setProperty("http.proxyHost", "proxy.istat.it");
+            System.setProperty("http.proxyPort", "3128");
+              
+            //Connect to the website and get the html
+            Document doc = Jsoup.connect(webSiteURL).get();
+            //Get all elements with img tag ,
+            Elements img = doc.getElementsByTag("img");
+
+            for (Element el : img) {
+
+                //for each element get the srs url
+                String src = el.absUrl("src");
+
+                System.out.println("Image Found!");
+                System.out.println("src attribute is : "+src);
+
+                getImages(src);
+
+            }
+
+        } catch (IOException ex) {
+            System.err.println("There was an error");
+            Logger.getLogger(ImagesDownloader.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private static void getImages(String src) throws IOException {
+
+        String folder = null;
+
+        //Exctract the name of the image from the src attribute
+        int indexname = src.lastIndexOf("/");
+
+        if (indexname == src.length()) {
+            src = src.substring(1, indexname);
+        }
+
+        indexname = src.lastIndexOf("/");
+        String name = src.substring(indexname, src.length());
+
+        System.out.println(name);
+
+        //Open a URL Stream
+        URL url = new URL(src);
+        InputStream in = url.openStream();
+
+        OutputStream out = new BufferedOutputStream(new FileOutputStream( folderPath+ name));
+
+        for (int b; (b = in.read()) != -1;) {
+            out.write(b);
+        }
+        out.close();
+        in.close();
+
+    }
+    */
+}
