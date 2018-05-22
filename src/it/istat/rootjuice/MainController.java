@@ -50,6 +50,7 @@ public class MainController {
 	private static String logFilePath;
 	private static boolean downloadOnlyBinaryContent=false;
 	private static String binaryContentFolder;
+	private static String binaryFileNameMustInclude = "";
 	private static int numOfCrawlers = Conf.NUM_OF_CRAWLERS;
 	private static int maxPagesPerSeed = Conf.MAX_PAGES_PER_SEED;
 	
@@ -124,7 +125,7 @@ public class MainController {
 		crawlConfig.setIncludeBinaryContentInCrawling(true); // this must be the 1st instruction of this method
 		logger.info("The parameter DOWNLOAD_ONLY_BINARY_CONTENT was set to TRUE, therefore the parameter INCLUDE_BINARY_CONTENT_IN_CRAWLING will be forced to TRUE");
         doCrawlControllerInstantiation();
-        BinaryFilesOnlyCrawler.configure(binaryContentFolder);
+        BinaryFilesOnlyCrawler.configure(binaryContentFolder,binaryFileNameMustInclude);
         createOutputCsvAndPrintFirstLine();	
         
         //=====================================================================================================
@@ -268,7 +269,11 @@ public class MainController {
 			if(props.getProperty("MAX_OUTGOING_LINKS_TO_FOLLOW") != null){crawlConfig.setMaxOutgoingLinksToFollow(Integer.parseInt(props.getProperty("MAX_OUTGOING_LINKS_TO_FOLLOW")));}
 			if(props.getProperty("MAX_DOWNLOAD_SIZE") != null){crawlConfig.setMaxDownloadSize(Integer.parseInt(props.getProperty("MAX_DOWNLOAD_SIZE")));}
 			if(props.getProperty("SOCKET_TIMEOUT") != null){crawlConfig.setSocketTimeout(Integer.parseInt(props.getProperty("SOCKET_TIMEOUT")));}
-			if(props.getProperty("CONNECTION_TIMEOUT") != null){crawlConfig.setConnectionTimeout(Integer.parseInt(props.getProperty("CONNECTION_TIMEOUT")));}
+			if(props.getProperty("CONNECTION_TIMEOUT") != null){
+				crawlConfig.setConnectionTimeout(Integer.parseInt(props.getProperty("CONNECTION_TIMEOUT")));
+				System.setProperty("sun.net.client.defaultReadTimeout", (Integer.parseInt(props.getProperty("CONNECTION_TIMEOUT"))+2000)+"");
+	            System.setProperty("sun.net.client.defaultConnectTimeout", (Integer.parseInt(props.getProperty("CONNECTION_TIMEOUT"))+2000)+"");
+			}
 			if(props.getProperty("DELAY_BETWEEN_REQUESTS_IN_MILLISEC") != null){crawlConfig.setPolitenessDelay(Integer.parseInt(props.getProperty("DELAY_BETWEEN_REQUESTS_IN_MILLISEC")));}
 			if(props.getProperty("INCLUDE_HTTPS_PAGES") != null){crawlConfig.setIncludeHttpsPages(Boolean.parseBoolean(props.getProperty("INCLUDE_HTTPS_PAGES")));}
 			if(props.getProperty("INCLUDE_BINARY_CONTENT_IN_CRAWLING") != null){crawlConfig.setIncludeBinaryContentInCrawling(Boolean.parseBoolean(props.getProperty("INCLUDE_BINARY_CONTENT_IN_CRAWLING")));}
@@ -298,6 +303,9 @@ public class MainController {
 				System.setProperty("http.proxyPassword", props.getProperty("PROXY_PASSWORD")); // necessary to directly use basic Java methods to download something
 			}
 			
+			if(props.getProperty("BINARY_FILE_NAMES_MUST_INCLUDE") != null){
+				binaryFileNameMustInclude = props.getProperty("BINARY_FILE_NAMES_MUST_INCLUDE");
+			}
 			
 			return crawlConfig;
 		}else{

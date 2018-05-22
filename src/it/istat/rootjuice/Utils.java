@@ -18,6 +18,7 @@ import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -63,7 +64,7 @@ public class Utils {
 	
 	public static synchronized void print(ParsedPage pp) throws IOException{
 		writer.append(pp.toString()).append("\r\n");
-		//writer.flush();
+		writer.flush();
 //		String[] tokens;
 //    	String delimiter = "\t";
 //		tokens = pp.toString().split(delimiter);
@@ -87,9 +88,9 @@ public class Utils {
 			//br.readLine(); // avoid the first line with headers
 			while ((strLine = br.readLine()) != null) {
 				listSeedsDomainsToFilter.add(strLine);
-				logger.info("seed domain to filter out added = " + strLine);
+				logger.debug("seed domain to filter out added = " + strLine);
 			}
-			
+			logger.debug("seed domains to filter out added = " + strLine);
 			br.close();
 			is.close();
 		}catch (FileNotFoundException fnfe) {
@@ -269,5 +270,29 @@ public class Utils {
     		return null;
     	}
     }
+
+	public static List<String> getSeparateWordsFromString(String binaryFileNameMustInclude) {
+		List<String> wordList = new ArrayList<String>();
+		String delimiter = ",";
+		
+		if (binaryFileNameMustInclude == null || binaryFileNameMustInclude.equals("")){
+			wordList.add("");
+			return wordList;
+		}
+		binaryFileNameMustInclude = binaryFileNameMustInclude.toLowerCase();
+		String[] tokens = binaryFileNameMustInclude.split(delimiter);
+		wordList = Arrays.asList(tokens);
+		return wordList;
+	}
+
+	public static boolean isHrefContainWords(String href, List<String> binaryFileNameMustIncludeList) {
+		href = href.toLowerCase();
+		for (String word : binaryFileNameMustIncludeList){
+			if (href.contains(word)){
+				return true;
+			}
+		}
+		return false;
+	}
     
 }

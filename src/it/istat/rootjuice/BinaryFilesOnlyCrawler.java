@@ -62,6 +62,7 @@ public class BinaryFilesOnlyCrawler extends WebCrawler {
 	private static File storageFolder;
 	private File firmFolder;
     private static int maxPagesPerSeed = MainController.getMaxPagesPerSeed();
+    private static List<String> binaryFileNameMustIncludeList;
     /*
     private HtmlPage htmlPage;
     private WebClient webClient;
@@ -118,12 +119,13 @@ public class BinaryFilesOnlyCrawler extends WebCrawler {
     	//driver.close();// selenium
     }
     
-    public static void configure(String storageFolderName) {
+    public static void configure(String storageFolderName,String binaryFileNameMustInclude) {
 
         storageFolder = new File(storageFolderName);
         if (!storageFolder.exists()) {
             storageFolder.mkdirs();
         }
+        binaryFileNameMustIncludeList = Utils.getSeparateWordsFromString(binaryFileNameMustInclude);
         
     }
 
@@ -206,7 +208,7 @@ public class BinaryFilesOnlyCrawler extends WebCrawler {
 					for (Element anchor : doc.select("a")){
 						
 						
-						if (Conf.PDF_PATTERNS.matcher(anchor.attr("href")).matches()) {
+						if (Conf.PDF_PATTERNS.matcher(anchor.attr("href")).matches() && Utils.isHrefContainWords(anchor.attr("href"),binaryFileNameMustIncludeList)) {
 							createFirmFolderIfNeeded(page.getWebURL().getFirmId());
 							logger.debug("I'm downloading " + anchor.attr("href") + " ");
 							String linkHref = anchor.attr("href");
@@ -233,7 +235,7 @@ public class BinaryFilesOnlyCrawler extends WebCrawler {
 				                    pp.add("ahref", " " + anchor.attr("href") + " ");
 			            		}
 			            	} catch (IOException iox) {
-			            		WebCrawler.logger.error("Failed to write file: " + filename, iox);
+			            		//WebCrawler.logger.error("Failed to write file: " + filename, iox);
 			            		logger.warn(iox.toString());
 			            		iox.printStackTrace();
 			     	        }
